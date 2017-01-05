@@ -41,6 +41,10 @@ class Index(ListView):
     template_name = 'niji/index.html'
     context_object_name = 'topics'
 
+    @method_decorator(login_required)
+    def get(self, *args, **kwargs):
+        return super(Index, self).get(self, *args, **kwargs)
+
     def get_queryset(self):
         return Topic.objects.visible().select_related(
             'user', 'node'
